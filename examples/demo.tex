@@ -1,0 +1,98 @@
+% Compile with pdfLaTeX from the examples directory (twice).
+% Choose one setting below: false = slides only; true = notes on the right.
+\newif\ifpresenternotes
+\presenternotesfalse % Change to \presenternotestrue to include PDF speaker notes.
+\documentclass[aspectratio=169,11pt]{beamer}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}
+\usepackage{graphicx}
+\definecolor{ink}{HTML}{17263D}
+\definecolor{muted}{HTML}{64748B}
+\definecolor{accent}{HTML}{2563EB}
+\definecolor{paper}{HTML}{F7F9FC}
+\setbeamercolor{normal text}{fg=ink,bg=paper}
+\setbeamercolor{frametitle}{fg=ink}
+\setbeamercolor{structure}{fg=accent}
+\setbeamerfont{frametitle}{size=\LARGE,series=\bfseries}
+\setbeamertemplate{navigation symbols}{}
+\setbeamertemplate{headline}{\vskip3mm\hspace{6mm}\textcolor{accent}{\scriptsize\bfseries PyPDFPresenter}\vskip1mm}
+\setbeamertemplate{footline}{\hspace{6mm}\textcolor{muted}{\tiny OFFLINE PDF PRESENTATIONS}\hfill
+  \textcolor{muted}{\tiny\insertframenumber\ / 6}\hspace{6mm}\vskip3mm}
+\ifpresenternotes
+  \setbeameroption{show notes on second screen=right}
+\else
+  \setbeameroption{hide notes}
+\fi
+\setbeamertemplate{note page}{%
+  \vspace{5mm}\hspace{7mm}\begin{minipage}{130mm}
+    \textcolor{accent}{\small\bfseries SPEAKER NOTES / PAGE \insertframenumber}
+    \par\medskip\normalsize\insertnote
+  \end{minipage}}
+\input{embed-video.tex}
+\title{PyPDFPresenter}
+\author{PyPDFPresenter contributors}
+\date{}
+\begin{document}
+\begin{frame}{Present with confidence.}
+  \Large Your slides. Your notes.\par\medskip
+  \normalsize A focused, offline PDF presenter.\par\bigskip
+  \begin{block}{Audience}A clear, full-screen slide.\end{block}
+  \begin{block}{Presenter}Notes, previews and timing.\end{block}
+  \medskip\textcolor{accent}{Open a PDF. Press F5.}
+  \note{\textbf{Welcome}\par\medskip
+    Welcome to PyPDFPresenter. This demo introduces a simple workflow for presenting PDF slides with a separate audience window. Everything runs locally.
+    \par\medskip Start the presentation with F5, then use the arrow keys to move through the deck. The audience sees only the slide. These notes stay in the presenter window.}
+\end{frame}
+\begin{frame}{One deck. Two views.}
+  \large Keep the room focused while you stay one step ahead.\par\bigskip
+  \begin{columns}[T]
+    \begin{column}{.3\textwidth}\textcolor{accent}{\Large 01}\par\medskip\textbf{Current slide}\par\smallskip\small Show the audience exactly what they need to see.\end{column}
+    \begin{column}{.3\textwidth}\textcolor{accent}{\Large 02}\par\medskip\textbf{Speaker notes}\par\smallskip\small Read your talking points at a comfortable size.\end{column}
+    \begin{column}{.3\textwidth}\textcolor{accent}{\Large 03}\par\medskip\textbf{Next page}\par\smallskip\small Preview the next slide before you advance.\end{column}
+  \end{columns}
+  \note{\textbf{Two views, one story}\par\medskip
+    Explain the difference between the audience window and the presenter workspace. The current slide is shown alongside your speaker notes and a preview of the next page.
+    \par\medskip Choose a preview layout that matches your screen. Notes can sit beside the current slide, with the next slide below either area. The bottom layout also previews the next page of notes.}
+\end{frame}
+\begin{frame}{Your notes. Your size.}
+  \begin{itemize}\setlength\itemsep{5mm}
+    \item \textbf{Read comfortably}\par Choose the font size that suits your screen.
+    \item \textbf{Edit intentionally}\par Unlock the text only when you want to change it.
+    \item \textbf{Save automatically}\par Keep speaker notes in a portable JSON file.
+  \end{itemize}
+  \note{\textbf{Notes that work for you}\par\medskip
+    This page is a good place to demonstrate JSON speaker notes. Increase the font size to make the text comfortable to read.
+    \par\medskip The text is protected by default. Choose Edit notes to make a change, then Finish editing to return to reading. Text and font changes are saved automatically. Each entry belongs to a physical PDF page, including individual builds.}
+\end{frame}
+\begin{frame}{Keep the room focused.}
+  \begin{description}\setlength\itemsep{5mm}
+    \item[Laser pointer]Point naturally. The audience follows your mouse position.
+    \item[Black screen]Pause the visuals. Bring attention back to the conversation.
+    \item[Clean View]Hide extra toolbars. Keep navigation and timing close.
+  \end{description}
+  \note{\textbf{Keep the room focused}\par\medskip
+    Turn on the laser pointer with L and move the mouse over the current slide. The audience window follows the same position.
+    \par\medskip Press B to black out the audience screen. Use Clean View to hide the header and the lower toolbar while keeping navigation and timing controls available. Click Clean View again to restore the controls.}
+\end{frame}
+\begin{frame}{A video, inside the PDF.}
+  \begin{columns}[c]
+    \begin{column}{.6\textwidth}\embeddedvideo{assets/demo-video.mp4}{assets/video-poster.png}{\linewidth}\end{column}
+    \begin{column}{.33\textwidth}\large Press \textbf{V} to play.\par\medskip\normalsize A six-second MP4 is embedded in this PDF.\par\medskip Try Auto-play videos too.\end{column}
+  \end{columns}
+  \note{\textbf{Embedded video}\par\medskip
+    This slide contains an original six-second animation as an embedded MP4. Press V, or click its region on the slide, to play or pause it.
+    \par\medskip The animation is extracted from this PDF and shown in place. No external viewer or internet connection is needed. Move to another page to stop playback. You can also enable Auto-play videos and return to this slide.}
+\end{frame}
+\begin{frame}{Ready for your next talk.}
+  \begin{enumerate}\setlength\itemsep{5mm}
+    \item Open your PDF.
+    \item Load or create your speaker notes.
+    \item Choose a display and press F5.
+  \end{enumerate}
+  \bigskip\textcolor{accent}{Open source. Local files. No account required.}
+  \note{\textbf{Ready for your next talk}\par\medskip
+    Summarize the workflow: open a PDF, load or create JSON notes, choose the audience display, and start presenting.
+    \par\medskip This repository includes both a slide-only PDF with JSON notes and a wide presenter PDF with notes on the right. Try both to compare the workflows. The source and media assets are included, so you can edit and rebuild the example with pdfLaTeX.}
+\end{frame}
+\end{document}

@@ -1,0 +1,22 @@
+.deps/
+.venv/
+__pycache__/
+*.pyc
+build/
+dist/
+tmp/
+.pytest_cache/
+.DS_Store
+Thumbs.db
+tests/
+tools/
+
+# TeX intermediates
+*.aux
+*.log
+*.nav
+*.out
+*.snm
+*.toc
+*.vrb
+*.synctex.gz

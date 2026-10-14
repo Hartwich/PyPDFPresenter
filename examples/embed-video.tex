@@ -1,0 +1,32 @@
+% Embedded MP4 via PDF Screen/Rendition annotations. Requires pdfLaTeX.
+% No Flash, PDF JavaScript, shell escape, or external viewer is used.
+\newcommand{\embeddedvideo}[3]{%
+  \begingroup
+  \immediate\pdfobj stream attr{/Type /EmbeddedFile} file{#1}%
+  \edef\videostream{\the\pdflastobj}%
+  \immediate\pdfobj{<< /Type /Filespec /F (#1) /UF (#1)
+    /EF << /F \videostream\space 0 R >> >>}%
+  \edef\videofile{\the\pdflastobj}%
+  \immediate\pdfobj{<< /Type /MediaClip /S /MCD /N (PyPDFPresenter demo)
+    /D \videofile\space 0 R /CT (video/mp4)
+    /P << /Type /MediaPermissions /TF (TEMPACCESS) >> >>}%
+  \edef\videoclip{\the\pdflastobj}%
+  \immediate\pdfobj{<< /Type /Rendition /S /MR /N (PyPDFPresenter demo)
+    /C \videoclip\space 0 R /P << /BE << /A false /RC 1 /V 100 >> >> >>}%
+  \edef\videorendition{\the\pdflastobj}%
+  \pdfobj reserveobjnum
+  \edef\videoaction{\the\pdflastobj}%
+  \immediate\pdfobj stream attr{/Type /XObject /Subtype /Form /BBox [0 0 1 1]}{}%
+  \edef\videoappearance{\the\pdflastobj}%
+  \setbox0=\hbox{\includegraphics[width=#3]{#2}}%
+  \hbox{%
+    \pdfannot width\wd0 height\ht0 depth\dp0{%
+      /Subtype /Screen /T (PyPDFPresenter demo) /F 4 /Border [0 0 0]
+      /AP << /N \videoappearance\space 0 R >>
+      /A \videoaction\space 0 R}%
+    \edef\videoannotation{\the\pdflastannot}%
+    \immediate\pdfobj useobjnum\videoaction{<< /Type /Action /S /Rendition
+      /R \videorendition\space 0 R /AN \videoannotation\space 0 R /OP 0 >>}%
+    \box0}%
+  \endgroup
+}
